@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时小组件</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        .countdown {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        .date-info {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+        .time-info {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        .target-date {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .input-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">25考研</h1>
+    <div id="countdown" class="countdown">倒计时</div>
+    <div id="time-info" class="time-info"></div>
+    <div id="target-date" class="target-date"></div>
+
+    <div class="input-container">
+        <label for="target-date-input">修改目标日期:</label>
+        <input type="date" id="target-date-input">
+    </div>
+
+    <script>
+        let targetDate = new Date("2024-12-21T00:00:00").getTime();
+
+        function countdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = "D-" + days;
+            document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
+        }
+
+        document.getElementById("target-date-input").addEventListener("change", function() {
+            const inputDate = new Date(this.value);
+            if (inputDate) {
+                targetDate = inputDate.getTime();
+                document.getElementById("target-date").innerHTML = "目标日期：" + this.value;
+            }
+        });
+
+        setInterval(countdown, 1000);
+    </script>
+</body>
+</html>
