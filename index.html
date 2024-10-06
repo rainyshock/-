@@ -68,13 +68,14 @@
             document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
 
             const targetDateObject = new Date(targetDate);
-            const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
-            document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
+            const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' };
+            const targetFormattedDate = targetDateObject.toLocaleDateString("zh-CN", options).replace(/\//g, "-");
+            document.getElementById("target-date").innerHTML = "目标日期：" + targetFormattedDate;
 
             // 新增代码：显示当前日期和星期
             const currentDate = new Date();
-            const todayOptions = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
-            document.getElementById("today-date").innerHTML = "今日：" + currentDate.toLocaleDateString("zh-CN", todayOptions);
+            const todayFormattedDate = currentDate.toLocaleDateString("zh-CN", options).replace(/\//g, "-");
+            document.getElementById("today-date").innerHTML = "今日：" + todayFormattedDate;
         }
 
         document.getElementById("target-date-input").addEventListener("change", function() {
@@ -82,8 +83,9 @@
             if (inputDate) {
                 targetDate = inputDate.getTime();
                 const targetDateObject = new Date(targetDate);
-                const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
-                document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
+                const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' };
+                const targetFormattedDate = targetDateObject.toLocaleDateString("zh-CN", options).replace(/\//g, "-");
+                document.getElementById("target-date").innerHTML = "目标日期：" + targetFormattedDate;
             }
         });
 
