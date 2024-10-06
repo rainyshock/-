@@ -53,16 +53,21 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML = "D-" + days;
+            document.getElementById("countdown").innerHTML = days + “天”;
             document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
-            document.getElementById("target-date").innerHTML = "目标日期：" + new Date(targetDate).toLocaleDateString();
+
+            const targetDateObject = new Date(targetDate);
+            const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+            document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
         }
 
         document.getElementById("target-date-input").addEventListener("change", function() {
             const inputDate = new Date(this.value);
             if (inputDate) {
                 targetDate = inputDate.getTime();
-                document.getElementById("target-date").innerHTML = "目标日期：" + this.value;
+                const targetDateObject = new Date(targetDate);
+                const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+                document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
             }
         });
 
