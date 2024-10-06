@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-    <h1 id="title">25考研</h1>
+    <h1 id="title">距25考研仅剩</h1>
     <div id="countdown" class="countdown">D-XX</div>
     <div id="time-info" class="time-info"></div>
     <div id="target-date" class="target-date"></div>
@@ -58,7 +58,7 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML = "D-" + days;
+            document.getElementById("countdown").innerHTML = days + "天" ;
             document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
 
             const targetDateObject = new Date(targetDate);
