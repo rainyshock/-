@@ -25,6 +25,9 @@
             font-size: 1.2rem;
             margin-top: 10px;
         }
+        .input-container {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -33,8 +36,15 @@
     <div id="time-info" class="time-info"></div>
     <div id="target-date" class="target-date"></div>
 
+    <div class="input-container">
+        <label for="target-date-input">修改目标日期:</label>
+        <input type="date" id="target-date-input">
+    </div>
+
     <script>
-        function countdown(targetDate) {
+        let targetDate = new Date("2024-12-21T00:00:00").getTime();
+
+        function countdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
 
@@ -45,16 +55,17 @@
 
             document.getElementById("countdown").innerHTML = "D-" + days;
             document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
-            document.getElementById("target-date").innerHTML = targetDateStr;
         }
 
-        const targetDateStr = "2024/12/21 周六";  // 修改目标日期
-        const targetDate = new Date("2024-12-21T00:00:00").getTime();  // 目标日期
-        document.getElementById("target-date").innerHTML = "目标日期：" + targetDateStr;
+        document.getElementById("target-date-input").addEventListener("change", function() {
+            const inputDate = new Date(this.value);
+            if (inputDate) {
+                targetDate = inputDate.getTime();
+                document.getElementById("target-date").innerHTML = "目标日期：" + this.value;
+            }
+        });
 
-        setInterval(function() {
-            countdown(targetDate);
-        }, 1000);
+        setInterval(countdown, 1000);
     </script>
 </body>
 </html>
