@@ -25,26 +25,16 @@
             font-size: 1.2rem;
             margin-top: 10px;
         }
-        .input-container {
-            display: none;
-        }
     </style>
 </head>
 <body>
     <h1 id="title">25考研</h1>
-    <div id="countdown" class="countdown">D-XX</div>
+    <div id="countdown" class="countdown">倒计时</div>
     <div id="time-info" class="time-info"></div>
     <div id="target-date" class="target-date"></div>
 
-    <div class="input-container">
-        <label for="target-date-input">修改目标日期:</label>
-        <input type="date" id="target-date-input">
-    </div>
-
     <script>
-        let targetDate = new Date("2024-12-21T00:00:00").getTime();
-
-        function countdown() {
+        function countdown(targetDate) {
             const now = new Date().getTime();
             const distance = targetDate - now;
 
@@ -53,25 +43,18 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML = days + "天";
+            document.getElementById("countdown").innerHTML = "D-" + days;
             document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
-
-            const targetDateObject = new Date(targetDate);
-            const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
-            document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
+            document.getElementById("target-date").innerHTML = targetDateStr;
         }
 
-        document.getElementById("target-date-input").addEventListener("change", function() {
-            const inputDate = new Date(this.value);
-            if (inputDate) {
-                targetDate = inputDate.getTime();
-                const targetDateObject = new Date(targetDate);
-                const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
-                document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
-            }
-        });
+        const targetDateStr = "2024/12/21 周六";  // 修改目标日期
+        const targetDate = new Date("2024-12-21T00:00:00").getTime();  // 目标日期
+        document.getElementById("target-date").innerHTML = "目标日期：" + targetDateStr;
 
-        setInterval(countdown, 1000);
+        setInterval(function() {
+            countdown(targetDate);
+        }, 1000);
     </script>
 </body>
 </html>
