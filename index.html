@@ -25,8 +25,13 @@
             font-size: 1.2rem;
             margin-top: 10px;
         }
+        .today-date {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: gray;
+        }
         .input-container {
-            display: none; /* 隐藏修改目标日期的输入部分 */
+            display: none;
         }
     </style>
 </head>
@@ -34,6 +39,7 @@
     <h1 id="title">距25考研仅剩</h1>
     <div id="countdown" class="countdown">D-XX</div>
     <div id="time-info" class="time-info"></div>
+    <div id="today-date" class="today-date"></div> <!-- 新增显示今日日期 -->
     <div id="target-date" class="target-date"></div>
 
     <div class="input-container">
@@ -58,12 +64,17 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("countdown").innerHTML = days + " 天" ;
+            document.getElementById("countdown").innerHTML = days + " 天";
             document.getElementById("time-info").innerHTML = hours + "小时 " + minutes + "分 " + seconds + "秒";
 
             const targetDateObject = new Date(targetDate);
             const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
             document.getElementById("target-date").innerHTML = "目标日期：" + targetDateObject.toLocaleDateString("zh-CN", options);
+
+            // 新增代码：显示当前日期和星期
+            const currentDate = new Date();
+            const todayOptions = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+            document.getElementById("today-date").innerHTML = "今日：" + currentDate.toLocaleDateString("zh-CN", todayOptions);
         }
 
         document.getElementById("target-date-input").addEventListener("change", function() {
